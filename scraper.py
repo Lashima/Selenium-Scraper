@@ -19,7 +19,6 @@ def get_videos(driver):
   #time.sleep(5)
   videos = driver.find_elements(By.TAG_NAME, VIDEO_DIV_TAG)
   return videos
-
 def parse_video(video):
   title_tag = video.find_element(By.ID, 'video-title')
   title = title_tag.text
@@ -30,9 +29,8 @@ def parse_video(video):
 
   channel_div = video.find_element(By.CLASS_NAME, 'ytd-channel-name')
   channel_name = channel_div.text
-  
-  description = video.find_element(By.ID, 'description-text').text
 
+  description = video.find_element(By.ID, 'description-text').text
   return {
     'title': title,
     'url': url,
@@ -40,6 +38,28 @@ def parse_video(video):
     'channel': channel_name,
     'description': description
   }
+  #setup email communication
+  def send_email(body):
+  try:
+    server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 
+   465)
+    server_ssl.ehlo()   
+    SENDER_EMAIL = 'lashimanasreen@gmail.com'
+    RECEIVER_EMAIL = 'lashimanasreen@gmail.com'
+    SENDER_PASSWORD = os.environ['PASSWORD']
+    subject = 'YouTube Trennding Videos'
+    email_text = f"""
+    From: {SENDER_EMAIL}
+    To: {RECEIVER_EMAIL}
+    Subject: {subject}
+    {body}
+    """
+    server_ssl.login(SENDER_EMAIL, SENDER_PASSWORD)
+    server_ssl.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, email_text)
+    server_ssl.close()
+
+  except:
+      print('Something went wrong...')
 
 if __name__ == "__main__":
   print('Creating driver')
@@ -50,8 +70,8 @@ if __name__ == "__main__":
   
   print(f'Found {len(videos)} videos')
 
-  print('Parsing top 10 videos')
-  videos_data = [parse_video(video) for video in videos[:10]]
+  print('Parsing top 20 videos')
+  videos_data = [parse_video(video) for video in videos[:20]]
   print(videos_data)
   print('Save the data to a CSV')
   videos_df = pd.DataFrame(videos_data)
