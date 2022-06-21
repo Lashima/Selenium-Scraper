@@ -8,6 +8,8 @@
      <li>Deployment using AWS lambda service ( created layer for selenium and driver) : you can use heroku also</li>
      <li>Scheduled functionality using cloudwatch by aws</li>
 </ul>
+<br/>
+--work will continue data analysis, machine learning ..
 
     
 
