@@ -44,8 +44,8 @@ def parse_video(video):
     server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 
    465)
     server_ssl.ehlo()   
-    SENDER_EMAIL = 'lashimanasreen@gmail.com'
-    RECEIVER_EMAIL = 'lashimanasreen@gmail.com'
+    SENDER_EMAIL = 'testmail@gmail.com'
+    RECEIVER_EMAIL = 'testmail@gmail.com'
     SENDER_PASSWORD = os.environ['PASSWORD']
     subject = 'YouTube Trennding Videos'
     email_text = f"""
